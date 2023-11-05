@@ -7,9 +7,21 @@
 
 import UIKit
 
+//addItemViewController 的协议 : 与希望使用屏幕AddItem的任意屏幕的协定
+protocol AddItemViewControllerDelegate: AnyObject{
+    func addItemViewControllerDidCancel(
+        _ controller: AddItemViewController
+    )
+    func addItemViewController(
+        _ controller: AddItemViewController,
+        didFinishAdding item: ChecklistItem
+    )
+}
+
 class AddItemViewController: UITableViewController,UITextFieldDelegate {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    weak var delegate: AddItemViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,12 +30,16 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
     
     // MARK: - Actions
     @IBAction func cancel(){
-        navigationController?.popViewController(animated: true)
+        //        navigationController?.popViewController(animated: true)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     @IBAction func done(){
-        print("Contents of the text field:\(textField.text!)")
-        navigationController?.popViewController(animated: true)
+        //        print("Contents of the text field:\(textField.text!)")
+        //        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem()
+        item.text = textField.text!
+        delegate?.addItemViewController(self, didFinishAdding: item)
     }
     
     // MARK - Table View Delegate 表格委托
@@ -51,4 +67,5 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
         doneBarButton.isEnabled = false
         return true
     }
+    
 }
