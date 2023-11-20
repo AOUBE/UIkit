@@ -7,39 +7,55 @@
 
 import UIKit
 
-//addItemViewController 的协议 : 与希望使用屏幕AddItem的任意屏幕的协定
-protocol AddItemViewControllerDelegate: AnyObject{
-    func addItemViewControllerDidCancel(
-        _ controller: AddItemViewController
+//itemDetailViewController 的协议 : 与希望使用屏幕AddItem的任意屏幕的协定
+protocol ItemDetailViewControllerDelegate: AnyObject{
+    func itemDetailViewControllerDidCancel(
+        _ controller: ItemDetailViewController
     )
-    func addItemViewController(
-        _ controller: AddItemViewController,
+    func itemDetailViewController(
+        _ controller: ItemDetailViewController,
         didFinishAdding item: ChecklistItem
+    )
+    func itemDetailViewController(
+        _ controller: ItemDetailViewController,
+        didFinishEditing item : ChecklistItem
     )
 }
 
-class AddItemViewController: UITableViewController,UITextFieldDelegate {
+class ItemDetailViewController: UITableViewController,UITextFieldDelegate {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
-    weak var delegate: AddItemViewControllerDelegate?
+    weak var delegate: ItemDetailViewControllerDelegate?
+    var itemToEdit: ChecklistItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
+        
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            doneBarButton.isEnabled = true
+        }
     }
     
     // MARK: - Actions
     @IBAction func cancel(){
         //        navigationController?.popViewController(animated: true)
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     @IBAction func done(){
         //        print("Contents of the text field:\(textField.text!)")
         //        navigationController?.popViewController(animated: true)
-        let item = ChecklistItem()
-        item.text = textField.text!
-        delegate?.addItemViewController(self, didFinishAdding: item)
+        if let item = itemToEdit {
+            item.text = textField.text!
+            delegate?.itemDetailViewController(self, didFinishEditing: item)
+        } else {
+            let item = ChecklistItem()
+            item.text = textField.text!
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
+        }
     }
     
     // MARK - Table View Delegate 表格委托
