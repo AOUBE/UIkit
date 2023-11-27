@@ -1,15 +1,15 @@
 /// Copyright (c) 2021 Razeware LLC
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,32 +32,35 @@
 
 import UIKit
 
-protocol ItemDetailViewControllerDelegate: AnyObject {
-  func itemDetailViewControllerDidCancel(
-    _ controller: ItemDetailViewController)
-  func itemDetailViewController(
-    _ controller: ItemDetailViewController,
-    didFinishAdding item: ChecklistItem
+protocol ListDetailViewControllerDelegate: AnyObject {
+  func listDetailViewControllerDidCancel(
+    _ controller: ListDetailViewController)
+
+  func listDetailViewController(
+    _ controller: ListDetailViewController,
+    didFinishAdding checklist: Checklist
   )
-  func itemDetailViewController(
-    _ controller: ItemDetailViewController,
-    didFinishEditing item: ChecklistItem
+
+  func listDetailViewController(
+    _ controller: ListDetailViewController,
+    didFinishEditing checklist: Checklist
   )
 }
 
-class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
-  @IBOutlet weak var textField: UITextField!
-  @IBOutlet weak var doneBarButton: UIBarButtonItem!
+class ListDetailViewController: UITableViewController, UITextFieldDelegate {
+  @IBOutlet var textField: UITextField!
+  @IBOutlet var doneBarButton: UIBarButtonItem!
 
-  weak var delegate: ItemDetailViewControllerDelegate?
-  var itemToEdit: ChecklistItem?
+  weak var delegate: ListDetailViewControllerDelegate?
+
+  var checklistToEdit: Checklist?
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.largeTitleDisplayMode = .never
-    if let item = itemToEdit {
-      title = "Edit Item"
-      textField.text = item.text
+
+    if let checklist = checklistToEdit {
+      title = "Edit Checklist"
+      textField.text = checklist.name
       doneBarButton.isEnabled = true
     }
   }
@@ -69,19 +72,20 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 
   // MARK: - Actions
   @IBAction func cancel() {
-    delegate?.itemDetailViewControllerDidCancel(self)
+    delegate?.listDetailViewControllerDidCancel(self)
   }
 
   @IBAction func done() {
-    if let item = itemToEdit {
-      item.text = textField.text!
-      delegate?.itemDetailViewController(
+    if let checklist = checklistToEdit {
+      checklist.name = textField.text!
+      delegate?.listDetailViewController(
         self,
-        didFinishEditing: item)
+        didFinishEditing: checklist)
     } else {
-      let item = ChecklistItem()
-      item.text = textField.text!
-      delegate?.itemDetailViewController(self, didFinishAdding: item)
+      let checklist = Checklist(name: textField.text!)
+      delegate?.listDetailViewController(
+        self,
+        didFinishAdding: checklist)
     }
   }
 
@@ -104,11 +108,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     let newText = oldText.replacingCharacters(
       in: stringRange,
       with: string)
-    if newText.isEmpty {
-      doneBarButton.isEnabled = false
-    } else {
-      doneBarButton.isEnabled = true
-    }
+    doneBarButton.isEnabled = !newText.isEmpty
     return true
   }
 
@@ -116,6 +116,5 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     doneBarButton.isEnabled = false
     return true
   }
+
 }
-
-
