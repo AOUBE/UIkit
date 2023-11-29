@@ -1,6 +1,6 @@
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate ,UINavigationControllerDelegate{
   let cellIdentifier = "ChecklistCell"
   var dataModel : DataModel!
   
@@ -9,8 +9,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     navigationController?.navigationBar.prefersLargeTitles = true
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     
-//    print("Documents folder is \(documentsDirectory())")
-//    print("Data file path is \(dataFilePath())")
+    //    print("Documents folder is \(documentsDirectory())")
+    //    print("Data file path is \(dataFilePath())")
   }
   
   // MARK: - Navigation
@@ -55,6 +55,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
   ) {
     let checklist = dataModel.lists[indexPath.row]
     performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+    dataModel.indexOfSelectedChecklist = indexPath.row
+//    UserDefaults.standard.set(indexPath.row, forKey: "ChecklistIndex")
   }
   
   override func tableView(
@@ -118,5 +120,22 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     navigationController?.popViewController(animated: true)
   }
   
- 
+  // MARK: - Navigation Controller Delegates
+  // 当跳转回来的时候 会讲数据改为-1 证明已经不在listdetail页面了
+  func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    if viewController === self {
+//      UserDefaults.standard.setValue(-1, forKey: "ChecklisIndex")
+      dataModel.indexOfSelectedChecklist = -1
+    }
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    navigationController?.delegate = self
+    let index = dataModel.indexOfSelectedChecklist
+    if index >= 0 && index < dataModel.lists.count {
+      let checklist = dataModel.lists[index]
+      performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+    }
+  }
 }
