@@ -7,7 +7,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.prefersLargeTitles = true
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    //    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     
     //    print("Documents folder is \(documentsDirectory())")
     //    print("Data file path is \(dataFilePath())")
@@ -39,13 +39,26 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     _ tableView: UITableView,
     cellForRowAt indexPath: IndexPath
   ) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: cellIdentifier, for: indexPath)
+    //    let cell = tableView.dequeueReusableCell(
+    //      withIdentifier: cellIdentifier, for: indexPath)
+    let cell: UITableViewCell!
+    if let tmp = tableView.dequeueReusableCell(withIdentifier: cellIdentifier){
+      cell = tmp
+    } else {
+      cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+    }
     
     let checklist = dataModel.lists[indexPath.row]
     cell.textLabel!.text = checklist.name
     cell.accessoryType = .detailDisclosureButton
     
+    let count = checklist.countUncheckedItems()
+    if checklist.items.count == 0{
+      cell.detailTextLabel!.text = "(No Items)"
+    } else {
+      cell.detailTextLabel!.text = count == 0 ? "All Done" : "\(checklist.countUncheckedItems()) Remaining"
+     
+    }
     return cell
   }
   
@@ -56,7 +69,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     let checklist = dataModel.lists[indexPath.row]
     performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     dataModel.indexOfSelectedChecklist = indexPath.row
-//    UserDefaults.standard.set(indexPath.row, forKey: "ChecklistIndex")
+    //    UserDefaults.standard.set(indexPath.row, forKey: "ChecklistIndex")
   }
   
   override func tableView(
@@ -124,7 +137,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
   // 当跳转回来的时候 会讲数据改为-1 证明已经不在listdetail页面了
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
     if viewController === self {
-//      UserDefaults.standard.setValue(-1, forKey: "ChecklisIndex")
+      //      UserDefaults.standard.setValue(-1, forKey: "ChecklisIndex")
       dataModel.indexOfSelectedChecklist = -1
     }
   }
@@ -137,5 +150,10 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
       let checklist = dataModel.lists[index]
       performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.reloadData()
   }
 }
