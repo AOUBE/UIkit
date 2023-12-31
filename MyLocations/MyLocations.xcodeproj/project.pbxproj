@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D4E41342B415C1400ACAD78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E41332B415C1400ACAD78 /* AppDelegate.swift */; };
 		0D4E41362B415C1400ACAD78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E41352B415C1400ACAD78 /* SceneDelegate.swift */; };
-		0D4E41382B415C1400ACAD78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E41372B415C1400ACAD78 /* ViewController.swift */; };
+		0D4E41382B415C1400ACAD78 /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E41372B415C1400ACAD78 /* CurrentLocationViewController.swift */; };
 		0D4E413B2B415C1400ACAD78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D4E41392B415C1400ACAD78 /* Main.storyboard */; };
 		0D4E413E2B415C1400ACAD78 /* MyLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E413C2B415C1400ACAD78 /* MyLocations.xcdatamodeld */; };
 		0D4E41402B415C1600ACAD78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D4E413F2B415C1600ACAD78 /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 		0D4E41302B415C1400ACAD78 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4E41332B415C1400ACAD78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D4E41352B415C1400ACAD78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0D4E41372B415C1400ACAD78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0D4E41372B415C1400ACAD78 /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
 		0D4E413A2B415C1400ACAD78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D4E413D2B415C1400ACAD78 /* MyLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLocations.xcdatamodel; sourceTree = "<group>"; };
 		0D4E413F2B415C1600ACAD78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 			children = (
 				0D4E41332B415C1400ACAD78 /* AppDelegate.swift */,
 				0D4E41352B415C1400ACAD78 /* SceneDelegate.swift */,
-				0D4E41372B415C1400ACAD78 /* ViewController.swift */,
+				0D4E41372B415C1400ACAD78 /* CurrentLocationViewController.swift */,
 				0D4E41392B415C1400ACAD78 /* Main.storyboard */,
 				0D4E413F2B415C1600ACAD78 /* Assets.xcassets */,
 				0D4E41412B415C1600ACAD78 /* LaunchScreen.storyboard */,
@@ -141,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D4E41382B415C1400ACAD78 /* ViewController.swift in Sources */,
+				0D4E41382B415C1400ACAD78 /* CurrentLocationViewController.swift in Sources */,
 				0D4E41342B415C1400ACAD78 /* AppDelegate.swift in Sources */,
 				0D4E413E2B415C1400ACAD78 /* MyLocations.xcdatamodeld in Sources */,
 				0D4E41362B415C1400ACAD78 /* SceneDelegate.swift in Sources */,
@@ -294,6 +294,7 @@
 				DEVELOPMENT_TEAM = K97432UDT6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "这个app将获取的你的地理位置";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -322,6 +323,7 @@
 				DEVELOPMENT_TEAM = K97432UDT6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "这个app将获取的你的地理位置";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
