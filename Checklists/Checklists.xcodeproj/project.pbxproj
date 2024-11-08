@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1BA8A82CDE066E009B50D6 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BA8A72CDE066E009B50D6 /* AddItemViewController.swift */; };
 		0D2E9E2B2CD8DD360051F315 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2E9E2A2CD8DD360051F315 /* AppDelegate.swift */; };
 		0D2E9E2D2CD8DD360051F315 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2E9E2C2CD8DD360051F315 /* SceneDelegate.swift */; };
 		0D2E9E2F2CD8DD360051F315 /* ChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2E9E2E2CD8DD360051F315 /* ChecklistViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D1BA8A72CDE066E009B50D6 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		0D2E9E272CD8DD360051F315 /* Checklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D2E9E2A2CD8DD360051F315 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D2E9E2C2CD8DD360051F315 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				0D2E9E352CD8DD380051F315 /* LaunchScreen.storyboard */,
 				0D2E9E382CD8DD380051F315 /* Info.plist */,
 				0DB8A61E2CDB12BF0035483C /* ChecklistItem.swift */,
+				0D1BA8A72CDE066E009B50D6 /* AddItemViewController.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D1BA8A82CDE066E009B50D6 /* AddItemViewController.swift in Sources */,
 				0D2E9E2F2CD8DD360051F315 /* ChecklistViewController.swift in Sources */,
 				0D2E9E2B2CD8DD360051F315 /* AppDelegate.swift in Sources */,
 				0D2E9E2D2CD8DD360051F315 /* SceneDelegate.swift in Sources */,
