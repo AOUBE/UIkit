@@ -18,6 +18,8 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
+    weak var delegate: AddItemViewControllerDelegate?
+    
     //MARK: - Table View Delegates
     //禁止此行被选中
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -42,13 +44,18 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
     
     //MARK: - Actions
     @IBAction func cancel(){
-        navigationController?.popViewController(animated: true)
+        //        navigationController?.popViewController(animated: true)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     @IBAction func done(){
-        print("Contents of the text field: \(textField.text!)")
+        //        print("Contents of the text field: \(textField.text!)")
+        //        
+        //        navigationController?.popViewController(animated: true)
         
-        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem()
+        item.text = textField.text!
+        delegate?.addItemViewController(self, didFinishAdding: item)
     }
     
     //MARK: - function

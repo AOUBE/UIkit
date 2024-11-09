@@ -7,7 +7,18 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+//协议只是声明了方法
+protocol AddItemViewControllerDelegate: AnyObject {
+    func addItemViewControllerDidCancel(
+        _ controller: AddItemViewController)
+    func addItemViewController(
+        _ controller: AddItemViewController,
+        didFinishAdding item: ChecklistItem
+    )
+}
+
+
+class ChecklistViewController: UITableViewController,AddItemViewControllerDelegate {
     
     var items = [ChecklistItem]()
     
@@ -76,17 +87,31 @@ class ChecklistViewController: UITableViewController {
     }
     
     // MARK: - Actions
-    @IBAction func addItem(){
+    
+    //MARK: - Add Item ViewController Delegates
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+        
         let newRowIndex = items.count
-        
-        let item = ChecklistItem()
-        item.text = "I am a new row"
         items.append(item)
-        
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
+        navigationController?.popViewController(animated: true)
     }
+    
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItem" {
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+        }
+    }
+    
     
     // MARK: - function
     func configureCheckmark(
