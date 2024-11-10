@@ -13,11 +13,16 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
         super.viewDidLoad()
         
         navigationItem.largeTitleDisplayMode = .never
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            doneBarButton.isEnabled = true
+        }
     }
     
+    var itemToEdit: ChecklistItem?
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
-    
     weak var delegate: AddItemViewControllerDelegate?
     
     //MARK: - Table View Delegates
@@ -36,6 +41,7 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
         doneBarButton.isEnabled = !newText.isEmpty
         return true
     }
+    
     //textfield 清除的时候会调用的方法
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         doneBarButton.isEnabled = false
@@ -50,7 +56,7 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
     
     @IBAction func done(){
         //        print("Contents of the text field: \(textField.text!)")
-        //        
+        //
         //        navigationController?.popViewController(animated: true)
         
         let item = ChecklistItem()

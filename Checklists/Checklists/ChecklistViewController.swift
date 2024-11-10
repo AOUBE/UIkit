@@ -94,7 +94,6 @@ class ChecklistViewController: UITableViewController,AddItemViewControllerDelega
     }
     
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
-        
         let newRowIndex = items.count
         items.append(item)
         let indexPath = IndexPath(row: newRowIndex, section: 0)
@@ -109,6 +108,13 @@ class ChecklistViewController: UITableViewController,AddItemViewControllerDelega
         if segue.identifier == "AddItem" {
             let controller = segue.destination as! AddItemViewController
             controller.delegate = self
+        } else if segue.identifier == "EditItem" {
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+            if let indexPath = tableView.indexPath(
+                for: sender as! UITableViewCell) {
+                controller.itemToEdit = items[indexPath.row]
+            }
         }
     }
     
@@ -118,10 +124,12 @@ class ChecklistViewController: UITableViewController,AddItemViewControllerDelega
         for cell: UITableViewCell,
         with item: ChecklistItem
     ) {
+        let label = cell.viewWithTag(1001) as! UILabel
+        
         if item.checked {
-            cell.accessoryType = .checkmark
+            label.text = "√"
         } else {
-            cell.accessoryType = .none
+            label.text = ""
         }
     }
     
