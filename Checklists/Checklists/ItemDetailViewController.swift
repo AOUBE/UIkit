@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  Checklists
 //
 //  Created by mittwoch on 2024/11/8.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddItemViewController: UITableViewController,UITextFieldDelegate {
+class ItemDetailViewController: UITableViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
     var itemToEdit: ChecklistItem?
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
-    weak var delegate: AddItemViewControllerDelegate?
+    weak var delegate: ItemDetailViewControllerDelegate?
     
     //MARK: - Table View Delegates
     //禁止此行被选中
@@ -51,17 +51,18 @@ class AddItemViewController: UITableViewController,UITextFieldDelegate {
     //MARK: - Actions
     @IBAction func cancel(){
         //        navigationController?.popViewController(animated: true)
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     @IBAction func done(){
-        //        print("Contents of the text field: \(textField.text!)")
-        //
-        //        navigationController?.popViewController(animated: true)
-        
-        let item = ChecklistItem()
-        item.text = textField.text!
-        delegate?.addItemViewController(self, didFinishAdding: item)
+        if let item = itemToEdit {
+            item.text = textField.text!
+            delegate?.itemDetailViewController(self, didFinishEditing: item)
+        } else {
+            let item = ChecklistItem()
+            item.text = textField.text!
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
+        }
     }
     
     //MARK: - function
