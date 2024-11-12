@@ -7,19 +7,7 @@
 
 import UIKit
 
-//协议只是声明了方法
-protocol ItemDetailViewControllerDelegate: AnyObject {
-    func itemDetailViewControllerDidCancel(
-        _ controller: ItemDetailViewController)
-    func itemDetailViewController(
-        _ controller: ItemDetailViewController,
-        didFinishAdding item: ChecklistItem
-    )
-    func itemDetailViewController(
-        _ controller: ItemDetailViewController,
-        didFinishEditing item: ChecklistItem
-    )
-}
+
 
 
 class ChecklistViewController: UITableViewController,ItemDetailViewControllerDelegate {
