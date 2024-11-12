@@ -25,17 +25,17 @@ protocol ItemDetailViewControllerDelegate: AnyObject {
 class ChecklistViewController: UITableViewController,ItemDetailViewControllerDelegate {
     
     var items = [ChecklistItem]()
-    
+    var checkList: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
+        title = checkList.name
         
         loadChecklistItems()
         
-        print("Documents folder is \(documentsDirectory())")
-        print("Data file path is \(dataFilePath())")
+        //print("Documents folder is \(documentsDirectory())")
+        //print("Data file path is \(dataFilePath())")
     }
     
     // MARK: - Table View Data Source 数据源
@@ -171,20 +171,20 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
     }
     
     func loadChecklistItems() {
-      // 1
-      let path = dataFilePath()
-      // 2
-      if let data = try? Data(contentsOf: path) {
-        // 3
-        let decoder = PropertyListDecoder()
-        do {
-          // 4
-          items = try decoder.decode(
-            [ChecklistItem].self,
-            from: data)
-        } catch {
-          print("Error decoding item array: \(error.localizedDescription)")
+        // 1
+        let path = dataFilePath()
+        // 2
+        if let data = try? Data(contentsOf: path) {
+            // 3
+            let decoder = PropertyListDecoder()
+            do {
+                // 4
+                items = try decoder.decode(
+                    [ChecklistItem].self,
+                    from: data)
+            } catch {
+                print("Error decoding item array: \(error.localizedDescription)")
+            }
         }
-      }
     }
 }
