@@ -15,10 +15,6 @@ class AllListsViewController: UITableViewController,ListDetailViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        //使用表视图注册了我们的单元格标识符
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
     }
     
     // MARK: - Table view data source
@@ -27,11 +23,22 @@ class AllListsViewController: UITableViewController,ListDetailViewControllerDele
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: cellIdentifier, for: indexPath)
+        
+        let cell: UITableViewCell!
+        if let tmp = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+            cell = tmp
+        } else {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+        }
         
         let checkList = dataModel.lists[indexPath.row]
         cell.textLabel!.text = checkList.name
+        let count = checkList.countUncheckItems()
+        if checkList.items.count == 0 {
+            cell.detailTextLabel!.text = "(No Items)"
+        } else {
+            cell.detailTextLabel!.text = count == 0 ? "All Done" : "\(count) Remaining"
+        }
         cell.accessoryType = .detailDisclosureButton
         
         return cell
@@ -108,6 +115,7 @@ class AllListsViewController: UITableViewController,ListDetailViewControllerDele
     }
     
     //在视图控制器可见后，UIKit会自动调用此方法。
+    // viewWillAppear 在 viewDidAppear之前调用
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.delegate = self
@@ -116,5 +124,9 @@ class AllListsViewController: UITableViewController,ListDetailViewControllerDele
             let checklist = dataModel.lists[index]
             performSegue(withIdentifier: "ShowChecklist", sender: checklist)
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 }
