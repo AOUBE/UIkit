@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController,ListDetailViewControllerDelegate {
+class AllListsViewController: UITableViewController,ListDetailViewControllerDelegate,UINavigationControllerDelegate {
     let cellIdentifier = "ChecklistCell"
     
     var dataModel: DataModel!
@@ -38,6 +38,9 @@ class AllListsViewController: UITableViewController,ListDetailViewControllerDele
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        dataModel.indexOfSelectedChecklist = indexPath.row
+        
         //ChecklistViewController到ItemDetailViewController点击一行将自动执行segue，因为您已将segue连接到原型单元格。
         //AllListsViewController到ChecklistViewController，此屏幕的表格视图没有使用原型单元格，必须手动执行segue。
         let checkList = dataModel.lists[indexPath.row]
@@ -97,5 +100,21 @@ class AllListsViewController: UITableViewController,ListDetailViewControllerDele
     }
     
     
+    //MARK: - Navigation Controller Delegates
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if viewController === self{
+            dataModel.indexOfSelectedChecklist = -1
+        }
+    }
     
+    //在视图控制器可见后，UIKit会自动调用此方法。
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.delegate = self
+        let index =  dataModel.indexOfSelectedChecklist
+        if index >= 0 && index < dataModel.lists.count {
+            let checklist = dataModel.lists[index]
+            performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+        }
+    }
 }

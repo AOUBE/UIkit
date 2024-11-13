@@ -68,21 +68,45 @@
 		0D2E9E292CD8DD360051F315 /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
+				0D7E7D2C2CE49513000F2724 /* Resources */,
+				0D7E7D2B2CE49508000F2724 /* View Controllers */,
+				0D7E7D2A2CE494FE000F2724 /* Data Models */,
 				0D2E9E2A2CD8DD360051F315 /* AppDelegate.swift */,
-				0D2E9E2C2CD8DD360051F315 /* SceneDelegate.swift */,
-				0D2E9E2E2CD8DD360051F315 /* ChecklistViewController.swift */,
-				0D2E9E302CD8DD360051F315 /* Main.storyboard */,
-				0D2E9E332CD8DD380051F315 /* Assets.xcassets */,
-				0D2E9E352CD8DD380051F315 /* LaunchScreen.storyboard */,
 				0D2E9E382CD8DD380051F315 /* Info.plist */,
-				0DB8A61E2CDB12BF0035483C /* ChecklistItem.swift */,
-				0D1BA8A72CDE066E009B50D6 /* ItemDetailViewController.swift */,
-				0D27F9552CE1F0D80057E3D4 /* AllListsViewController.swift */,
-				0D25713D2CE330E300C2AC84 /* CheckList.swift */,
-				0D346C062CE39CCD00616015 /* ListDetailViewController.swift */,
-				0D7E7D282CE480D8000F2724 /* DataModel.swift */,
+				0D2E9E2C2CD8DD360051F315 /* SceneDelegate.swift */,
 			);
 			path = Checklists;
+			sourceTree = "<group>";
+		};
+		0D7E7D2A2CE494FE000F2724 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				0DB8A61E2CDB12BF0035483C /* ChecklistItem.swift */,
+				0D7E7D282CE480D8000F2724 /* DataModel.swift */,
+				0D25713D2CE330E300C2AC84 /* CheckList.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		0D7E7D2B2CE49508000F2724 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0D27F9552CE1F0D80057E3D4 /* AllListsViewController.swift */,
+				0D2E9E2E2CD8DD360051F315 /* ChecklistViewController.swift */,
+				0D1BA8A72CDE066E009B50D6 /* ItemDetailViewController.swift */,
+				0D346C062CE39CCD00616015 /* ListDetailViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		0D7E7D2C2CE49513000F2724 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0D2E9E332CD8DD380051F315 /* Assets.xcassets */,
+				0D2E9E302CD8DD360051F315 /* Main.storyboard */,
+				0D2E9E352CD8DD380051F315 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
