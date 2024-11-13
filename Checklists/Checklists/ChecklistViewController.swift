@@ -12,7 +12,7 @@ import UIKit
 
 class ChecklistViewController: UITableViewController,ItemDetailViewControllerDelegate {
     
-    var items = [ChecklistItem]()
+//    var items = [ChecklistItem]()
     var checkList: Checklist!
     
     override func viewDidLoad() {
@@ -20,7 +20,7 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
         navigationItem.largeTitleDisplayMode = .never
         title = checkList.name
         
-        loadChecklistItems()
+//        loadChecklistItems()
         
         //print("Documents folder is \(documentsDirectory())")
         //print("Data file path is \(dataFilePath())")
@@ -28,14 +28,14 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
     
     // MARK: - Table View Data Source 数据源
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return checkList.items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //dequeueReusableCell(withIdentifier: <#T##String#>, for: <#T##IndexPath#>)得到了单元格的副本
         //indexPath 一个指向表中特定行的对象
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
-        let item = items[indexPath.row]
+        let item = checkList.items[indexPath.row]
         configureText(for: cell,  with: item)
         configureCheckmark(for: cell,  with: item)
         return cell
@@ -45,20 +45,20 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
     //这个方法修改了表格的选择按钮
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath){
-            let item = items[indexPath.row]
+            let item = checkList.items[indexPath.row]
             item.checked.toggle()
             configureCheckmark(for: cell, with: item)
         }
         //修改了表格选中状态
         tableView.deselectRow(at: indexPath, animated: true)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
     //这个方法是滑动删除的方法
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        items.remove(at: indexPath.row)
+        checkList.items.remove(at: indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
     
     // MARK: - Actions
@@ -69,24 +69,24 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
-        let newRowIndex = items.count
-        items.append(item)
+        let newRowIndex = checkList.items.count
+        checkList.items.append(item)
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
         navigationController?.popViewController(animated: true)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
-        if let index = items.firstIndex(of: item){
+        if let index = checkList.items.firstIndex(of: item){
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath){
                 configureText(for: cell, with: item)
             }
         }
         navigationController?.popViewController(animated: true)
-        saveChecklistItems()
+//        saveChecklistItems()
     }
     
     //MARK: - Navigation
@@ -99,7 +99,7 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
             controller.delegate = self
             if let indexPath = tableView.indexPath(
                 for: sender as! UITableViewCell) {
-                controller.itemToEdit = items[indexPath.row]
+                controller.itemToEdit = checkList.items[indexPath.row]
             }
         }
     }
@@ -129,50 +129,50 @@ class ChecklistViewController: UITableViewController,ItemDetailViewControllerDel
     }
     
     //MARK: - 数据存储与读取
-    func documentsDirectory() -> URL {
-        let paths = FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask)
-        return paths[0]
-    }
-    
-    func dataFilePath() -> URL {
-        return documentsDirectory().appendingPathComponent("Checklists.plist")
-    }
-    
-    func saveChecklistItems() {
-        // 1 创建一个PropertyListEncoder实例，该实例将项目数组及其中的所有ChecklistItems编码为某种可以写入文件的二进制数据格式。
-        let encoder = PropertyListEncoder()
-        // 2
-        do {
-            // 3 之前创建的编码器用于尝试对项目数组进行编码 try 如果报错 直接跳入catch
-            let data = try encoder.encode(items)
-            // 4 将编码的文件 写入 dataFilePath返回的路径中
-            try data.write(
-                to: dataFilePath(),
-                options: Data.WritingOptions.atomic)
-            // 5 do中包含的代码出错 都会跳转入catch
-        } catch {
-            // 6
-            print("Error encoding item array: \(error.localizedDescription)")
-        }
-    }
-    
-    func loadChecklistItems() {
-        // 1
-        let path = dataFilePath()
-        // 2
-        if let data = try? Data(contentsOf: path) {
-            // 3
-            let decoder = PropertyListDecoder()
-            do {
-                // 4
-                items = try decoder.decode(
-                    [ChecklistItem].self,
-                    from: data)
-            } catch {
-                print("Error decoding item array: \(error.localizedDescription)")
-            }
-        }
-    }
+//    func documentsDirectory() -> URL {
+//        let paths = FileManager.default.urls(
+//            for: .documentDirectory,
+//            in: .userDomainMask)
+//        return paths[0]
+//    }
+//
+//    func dataFilePath() -> URL {
+//        return documentsDirectory().appendingPathComponent("Checklists.plist")
+//    }
+//
+//    func saveChecklistItems() {
+//        // 1 创建一个PropertyListEncoder实例，该实例将项目数组及其中的所有ChecklistItems编码为某种可以写入文件的二进制数据格式。
+//        let encoder = PropertyListEncoder()
+//        // 2
+//        do {
+//            // 3 之前创建的编码器用于尝试对项目数组进行编码 try 如果报错 直接跳入catch
+//            let data = try encoder.encode(checkList.items)
+//            // 4 将编码的文件 写入 dataFilePath返回的路径中
+//            try data.write(
+//                to: dataFilePath(),
+//                options: Data.WritingOptions.atomic)
+//            // 5 do中包含的代码出错 都会跳转入catch
+//        } catch {
+//            // 6
+//            print("Error encoding item array: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    func loadChecklistItems() {
+//        // 1
+//        let path = dataFilePath()
+//        // 2
+//        if let data = try? Data(contentsOf: path) {
+//            // 3
+//            let decoder = PropertyListDecoder()
+//            do {
+//                // 4
+//                checkList.items = try decoder.decode(
+//                    [ChecklistItem].self,
+//                    from: data)
+//            } catch {
+//                print("Error decoding item array: \(error.localizedDescription)")
+//            }
+//        }
+//    }
 }
