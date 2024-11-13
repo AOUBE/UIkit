@@ -28,6 +28,12 @@ class DataModel {
         }
     }
     
+    func sortChecklists() {
+        lists.sort { list1, list2 in
+            //localizedStandardCompare(_:)方法比较两个名称字符串，同时忽略小写字母与大写字母（因此“a”和“A”被视为相等），并考虑当前区域设置的规则。
+            return list1.name.localizedStandardCompare(list2.name) == .orderedAscending
+        }
+    }
     
     //MARK: - UserDefaults
     func registerDefaults(){
@@ -71,8 +77,10 @@ class DataModel {
         let path = dataFilePath()
         if let data = try? Data(contentsOf: path) {
             let decoder = PropertyListDecoder()
+                       
             do {
                 lists = try decoder.decode([Checklist].self, from: data)
+                sortChecklists() 
             } catch {
                 print("Error decoding list array: \(error.localizedDescription)")
             }
