@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D48DF032CE6EE4700FEBA4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D48DF022CE6EE4700FEBA4E /* AppDelegate.swift */; };
 		0D48DF052CE6EE4700FEBA4E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D48DF042CE6EE4700FEBA4E /* SceneDelegate.swift */; };
-		0D48DF072CE6EE4700FEBA4E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D48DF062CE6EE4700FEBA4E /* ViewController.swift */; };
+		0D48DF072CE6EE4700FEBA4E /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D48DF062CE6EE4700FEBA4E /* CurrentLocationViewController.swift */; };
 		0D48DF0A2CE6EE4700FEBA4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D48DF082CE6EE4700FEBA4E /* Main.storyboard */; };
 		0D48DF0D2CE6EE4700FEBA4E /* MyLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D48DF0B2CE6EE4700FEBA4E /* MyLocations.xcdatamodeld */; };
 		0D48DF0F2CE6EE4900FEBA4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D48DF0E2CE6EE4900FEBA4E /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 		0D48DEFF2CE6EE4700FEBA4E /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D48DF022CE6EE4700FEBA4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D48DF042CE6EE4700FEBA4E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0D48DF062CE6EE4700FEBA4E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0D48DF062CE6EE4700FEBA4E /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
 		0D48DF092CE6EE4700FEBA4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D48DF0C2CE6EE4700FEBA4E /* MyLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLocations.xcdatamodel; sourceTree = "<group>"; };
 		0D48DF0E2CE6EE4900FEBA4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 			children = (
 				0D48DF022CE6EE4700FEBA4E /* AppDelegate.swift */,
 				0D48DF042CE6EE4700FEBA4E /* SceneDelegate.swift */,
-				0D48DF062CE6EE4700FEBA4E /* ViewController.swift */,
+				0D48DF062CE6EE4700FEBA4E /* CurrentLocationViewController.swift */,
 				0D48DF082CE6EE4700FEBA4E /* Main.storyboard */,
 				0D48DF0E2CE6EE4900FEBA4E /* Assets.xcassets */,
 				0D48DF102CE6EE4900FEBA4E /* LaunchScreen.storyboard */,
@@ -141,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D48DF072CE6EE4700FEBA4E /* ViewController.swift in Sources */,
+				0D48DF072CE6EE4700FEBA4E /* CurrentLocationViewController.swift in Sources */,
 				0D48DF032CE6EE4700FEBA4E /* AppDelegate.swift in Sources */,
 				0D48DF0D2CE6EE4700FEBA4E /* MyLocations.xcdatamodeld in Sources */,
 				0D48DF052CE6EE4700FEBA4E /* SceneDelegate.swift in Sources */,
@@ -294,11 +294,13 @@
 				DEVELOPMENT_TEAM = K97432UDT6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app lets you keep track of interesting places. It needs access to the GPS coordinates for your location.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -322,11 +324,13 @@
 				DEVELOPMENT_TEAM = K97432UDT6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app lets you keep track of interesting places. It needs access to the GPS coordinates for your location.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
